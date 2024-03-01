@@ -1,95 +1,59 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client"
+import { useState } from "react";
+import Lottie from "lottie-react";
+import animationData from "../assets/animation.json";
+import { Grid, Typography, Box } from "@mui/material";
+import Login from "./components/Login";
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Register from "./components/Register";
+
+
 
 export default function Home() {
+
+
+  const [value, setValue] = useState(0);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+    <>
 
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
+      <Grid container style={{ height: "100vh" }} spacing={2}>
+        <Grid item xs={6} style={{ backgroundColor: "#CE9539" }}>
+          <Lottie animationData={animationData} />
+          <Typography variant="subtitle" style={{ fontFamily: "fantasy", fontWeight: 'bold' }}>Welcome to CabZen, your ultimate destination for hassle-free and convenient rides across town, where every journey is a seamless experience tailored to your needs, ensuring comfort, safety, and reliability at every turn.</Typography>
+        </Grid>
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
+        <Grid item xs={6} style={{ position: 'relative', backgroundColor: "#E8EBE6", display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <Grid container direction="column" alignItems="center" spacing={2}>
+            <Grid item>
+              <div style={{ position: 'relative' }}>
+                <Typography variant="h5" style={{ fontWeight: 600, fontFamily: "cursive", color: '#3B383A', fontSize: 50, textAlign: 'center' }}>Cabzen</Typography>
+                <Typography variant="caption" style={{ color: 'gray', marginBottom: 20, fontFamily: "cursive" }}>Your Companion</Typography>
+              </div>
+              <div style={{ marginTop: 10 }}>
+                <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+                  <Tab label="Login" />
+                  <Tab label="Register" />
+                </Tabs>
+              </div>
+            </Grid>
+            <Grid item>
+           
+              {value === 0 && <Login />}
+              {value === 1 && <Register />}
+            </Grid>
+          </Grid>
+        </Grid>
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
+      </Grid>
 
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+    </>
+
   );
 }
