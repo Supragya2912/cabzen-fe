@@ -56,6 +56,7 @@ export default function Register() {
                     label="Password" variant="outlined" margin="normal"
                 />
                 <TextField
+                
                 sx={{ backgroundColor: 'white' }} 
                     InputProps={{
                         startAdornment: <PhoneIcon style={{ marginRight: 8, color: 'gray' }} />,
@@ -65,7 +66,7 @@ export default function Register() {
                 <Select
                    
                      sx={{ backgroundColor: 'white' }} fullWidth
-                    name="role"
+                     name="role"
 
                 >
                     <MenuItem value="admin">Admin</MenuItem>
