@@ -8,10 +8,10 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Register from "./components/Register";
 import Img from "../assets/logo.png";
+import Image from 'next/image'
 
 
 export default function Home() {
-
 
   const [value, setValue] = useState(0);
 
@@ -20,29 +20,32 @@ export default function Home() {
   };
 
   return (
-
-    <>
-      <Grid container style={{ height: "100vh" }} spacing={2}>
-        <Grid item xs={6} style={{ backgroundColor: "#CE9539" }}>
-          <img src={Img} alt="logo" style={{ width: "100%", marginBottom: 20 }} />
-          <Lottie animationData={animationData} />
-          <Typography variant="subtitle" style={{ fontFamily: "fantasy", fontWeight: 'bold' }}>Welcome to CabZen, your ultimate destination for hassle-free and convenient rides across town, where every journey is a seamless experience tailored to your needs, ensuring comfort, safety, and reliability at every turn.</Typography>
+    <div style={{ height: '100vh', width: "100%" }}>
+      <Grid container spacing={2}>
+        <Grid item xs={12} sm={6} style={{ backgroundColor: "#CE9539", padding: '20px' }}>
+          <div style={{ textAlign: 'center', marginBottom: '20px' }}>
+            <Image src={Img} alt="logo" width={100} height={91} />
+          </div>
+          <Lottie  style={{height: 605}} animationData={animationData} />
+          <Typography variant="subtitle1" style={{ fontFamily: "fantasy", fontWeight: 'bold' }}>
+            Welcome to CabZen, your ultimate destination for hassle-free and convenient rides across town, where every journey is a seamless experience tailored to your needs, ensuring comfort, safety, and reliability at every turn.
+          </Typography>
         </Grid>
 
-        <Grid item xs={6} style={{ position: 'relative', backgroundColor: "#E8EBE6", display: 'flex' }}>
+        <Grid item xs={12} sm={6} style={{ backgroundColor: "#E8EBE6", padding: '20px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
           <Grid container direction="column" alignItems="center" spacing={2}>
-            <Grid item>
-              <div style={{ position: 'relative' , textAlign: 'center'}}>
-                <Typography variant="h5" style={{ fontWeight: 600, fontFamily: "cursive", color: '#3B383A', fontSize: 50 }}>Cabzen</Typography>
-                <Typography variant="caption" style={{ color: 'gray', marginBottom: 20, fontFamily: "cursive" }}>Your Companion</Typography>
+            <Grid item style={{ width: '100%' }}>
+              <div style={{ textAlign: 'center', marginBottom: '20px' }}>
+                <Typography variant="h5" style={{ fontWeight: 600, fontFamily: "cursive", color: '#3B383A', fontSize: '2rem' }}>Cabzen</Typography>
+                <Typography variant="caption" style={{ color: 'gray', fontFamily: "cursive" }}>Your Companion</Typography>
               </div>
-              <div style={{ marginTop: 10, height: 300}}> {/* Set a fixed height for the container */}
-                <Tabs value={value} onChange={handleChange}>
+              <div style={{ width: '100%' }}>
+                <Tabs value={value} onChange={handleChange} centered>
                   <Tab label="Login" />
                   <Tab label="Register" />
                 </Tabs>
-                <div style={{ height: "100%", marginTop: 50 }}> {/* Add overflow-y:auto to enable scrolling */}
-                {value === 0 && <Login />}
+                <div style={{ marginTop: '20px', width: '100%', display:"flex", justifyContent:"center" }}>
+                  {value === 0 && <Login />}
                   {value === 1 && <Register />}
                 </div>
               </div>
@@ -50,6 +53,6 @@ export default function Home() {
           </Grid>
         </Grid>
       </Grid>
-    </>
+    </div>
   );
 }
