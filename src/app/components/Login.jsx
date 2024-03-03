@@ -7,6 +7,9 @@ import LockIcon from '@mui/icons-material/Lock';
 import Img from "../../assets/logo.png";
 import Image from 'next/image';
 import { loginUser } from '../utils/api';
+import { loginSuccess } from '../redux/reducers/loginReducer';
+import { useDispatch } from 'react-redux';
+import { useRouter } from 'next/navigation';
 
 
 export default function Login() {
@@ -17,6 +20,9 @@ export default function Login() {
     });
     const [showPassword, setShowPassword] = useState(false);
     const [rememberMe, setRememberMe] = useState(false);
+    const dispatch = useDispatch();
+    const router = useRouter();
+
 
     useEffect(() => {
         const storedEmail = localStorage.getItem('rememberedEmail');
@@ -44,10 +50,13 @@ export default function Login() {
         e.preventDefault();
         try {
 
-           await loginUser(loginData);
-           alert('Login successful!');
-
-
+          const loginResponse = await loginUser(loginData);
+           console.log(loginResponse.data)
+           
+           dispatch(loginSuccess(loginResponse.data))
+           router.push('/dashboard');
+          
+           
         }catch (err) {
             console.error('Error logging in user:', err);
             throw err;

@@ -1,6 +1,7 @@
 import { Inter } from "next/font/google";
 // import "./globals.css";
 // import { AppRouterCacheProvider } from 'next/app-router';
+import { ReduxProvider } from "./redux/provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,10 +15,10 @@ export default function RootLayout({ children }) {
     <html lang="en">
 
       <body className={inter.className}>
-      {/* <AppRouterCacheProvider> */}
-        {children}
-      {/* </AppRouterCacheProvider> */}
-        </body>
+        <ReduxProvider>
+          {children}
+        </ReduxProvider>
+      </body>
     </html>
   );
 }

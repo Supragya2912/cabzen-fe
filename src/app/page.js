@@ -21,7 +21,7 @@ export default function Home() {
 
   return (
     <div style={{ height: '100vh', width: "100%" }}>
-      <Grid container spacing={2}>
+      <Grid container spacing={2} sx={{height:'100vh'}}>
         <Grid item xs={12} sm={6} style={{ backgroundColor: "#CE9539", padding: '20px' }}>
           <div style={{ textAlign: 'center', marginBottom: '20px' }}>
             <Image src={Img} alt="logo" width={100} height={91} />

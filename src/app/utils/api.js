@@ -44,7 +44,7 @@ export async function loginUser(userData) {
         }
 
         return await response.json();
-    
+       
     
     }catch (err) {
         console.error('Error logging in user:', err);
