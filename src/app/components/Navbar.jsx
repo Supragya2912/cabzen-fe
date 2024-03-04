@@ -13,7 +13,7 @@ const Navbar = () => {
     const userData = useSelector((state) => state.loginReducer)
     console.log(userData);
     return (
-        <AppBar position="static" style={{ backgroundColor: 'linear-gradient(to right bottom, #430089, #82ffa1)'} }>
+        <AppBar position="static" style={{ backgroundColor: "orange" }}>
             <Toolbar style={{ justifyContent: 'space-between' }}>
                 <Typography variant="h6" style={{ color: 'white' }}>
                     CabZen
