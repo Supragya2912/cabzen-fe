@@ -1,53 +1,64 @@
 "use client"
-import React from 'react';
-import { AppBar, Toolbar, Typography, IconButton, Avatar } from '@mui/material';
-import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
-import WorkIcon from '@mui/icons-material/Work';
-import LocalTaxiIcon from '@mui/icons-material/LocalTaxi';
-import SettingsIcon from '@mui/icons-material/Settings';
-import { useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import Box from '@mui/material/Box';
+import Drawer from '@mui/material/Drawer';
+import Button from '@mui/material/Button';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import { TbBrand4Chan } from "react-icons/tb";
+import { ImUsers } from "react-icons/im";
+import { IoMdCar } from "react-icons/io";
+import { FiAlignJustify } from "react-icons/fi";
+import { MdDashboard } from "react-icons/md";
+import { IoSettings } from "react-icons/io5";
 
 
-const Navbar = () => {
 
-    const userData = useSelector((state) => state.loginReducer)
-    console.log(userData);
-    return (
-        <AppBar position="static" style={{ backgroundColor: "orange" }}>
-            <Toolbar style={{ justifyContent: 'space-between' }}>
-                <Typography variant="h6" style={{ color: 'white' }}>
-                    CabZen
-                </Typography>
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <div style={{ display: 'flex', alignItems: 'center' }}>
-                        <IconButton color="inherit">
-                            <PeopleAltIcon />
-                        </IconButton>
-                        <Typography variant="body1" style={{ color: 'white', marginRight: '10px' }}>Users</Typography>
-                    </div>
-                    <div style={{ display: 'flex', alignItems: 'center' }}>
-                        <IconButton color="inherit">
-                            <WorkIcon />
-                        </IconButton>
-                        <Typography variant="body1" style={{ color: 'white', marginRight: '10px' }}>Brands</Typography>
-                    </div>
-                    <div style={{ display: 'flex', alignItems: 'center' }}>
-                        <IconButton color="inherit">
-                            <LocalTaxiIcon />
-                        </IconButton>
-                        <Typography variant="body1" style={{ color: 'white', marginRight: '10px' }}>Cabs</Typography>
-                    </div>
-                    <div style={{ display: 'flex', alignItems: 'center' }}>
-                        <IconButton color="inherit">
-                            <SettingsIcon />
-                        </IconButton>
-                        <Typography variant="body1" style={{ color: 'white', marginRight: '10px' }}>Settings</Typography>
-                    </div>
-                </div>
-                <Avatar />
-            </Toolbar>
-        </AppBar>
+export default function TemporaryDrawer() {
+
+    const [open, setOpen] = useState(false);
+
+    const toggleDrawer = (newOpen) => () => {
+        setOpen(newOpen);
+    };
+
+    const DrawerList = (
+        <Box sx={{ width: 250, backgroundColor: "#23252D", height: "100vh" }} role="presentation" onClick={toggleDrawer(false)}>
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100px', backgroundColor: 'black' }}>
+                <div style={{ color: 'white', fontSize: '24px' }}>ＣＡＢＺＥＮ</div>
+            </div>
+
+            <List>
+                {['Dashboard', 'Users', 'Cabs', 'Brands', 'Settings'].map((text, index) => (
+                    <ListItem key={text} disablePadding>
+                        <ListItemButton sx={{ '&:hover': { border: '1px solid orange' } }}>
+                            <ListItemIcon>
+                                {
+                                    index === 0 ? <MdDashboard style={{ color: "orange" }} /> :
+                                        index === 2 ? <IoMdCar style={{ color: "orange" }} /> :
+                                            index === 1 ? <ImUsers style={{ color: "orange" }} /> :
+                                                index === 3 ? <TbBrand4Chan style={{ color: "orange" }} /> :
+                                                    index === 4 ? <IoSettings style={{ color: "orange" }} /> :
+                                                        null
+                                }
+                            </ListItemIcon>
+                            <ListItemText sx={{ color: "white" }} primary={text} />
+                        </ListItemButton>
+                    </ListItem>
+                ))}
+            </List>
+        </Box>
     );
-};
 
-export default Navbar;
+    return (
+        <div>
+            <Button onClick={toggleDrawer(true)}><FiAlignJustify size={30} style={{ color: "orange" }} /></Button>
+            <Drawer open={open} onClose={toggleDrawer(false)}>
+                {DrawerList}
+            </Drawer>
+        </div>
+    );
+}
