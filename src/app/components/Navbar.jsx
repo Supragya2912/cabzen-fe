@@ -14,12 +14,14 @@ import { IoMdCar } from "react-icons/io";
 import { FiAlignJustify } from "react-icons/fi";
 import { MdDashboard } from "react-icons/md";
 import { IoSettings } from "react-icons/io5";
+import { useRouter } from 'next/navigation';
 
 
 
 export default function TemporaryDrawer() {
 
     const [open, setOpen] = useState(false);
+    const router = useRouter();
 
     const toggleDrawer = (newOpen) => () => {
         setOpen(newOpen);
@@ -34,7 +36,21 @@ export default function TemporaryDrawer() {
             <List>
                 {['Dashboard', 'Users', 'Cabs', 'Brands', 'Settings'].map((text, index) => (
                     <ListItem key={text} disablePadding>
-                        <ListItemButton sx={{ '&:hover': { border: '1px solid orange' } }}>
+                        <ListItemButton sx={{ '&:hover': { border: '1px solid orange' } }} 
+                           onClick={() => {
+                            if (index === 0) {
+                                router.push('/dashboard');
+                            } else if (index === 1) {
+                                router.push('/users');
+                            } else if (index === 2) {
+                                router.push('/cabs');
+                            } else if (index === 3) {
+                                router.push('/brands');
+                            } else if (index === 4) {
+                                router.push('/settings');
+                            }
+                           }}
+                        >
                             <ListItemIcon>
                                 {
                                     index === 0 ? <MdDashboard style={{ color: "orange" }} /> :

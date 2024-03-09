@@ -7,7 +7,7 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import LockIcon from '@mui/icons-material/Lock';
 import PhoneIcon from '@mui/icons-material/Phone';
 import Image from 'next/image';
-import { registerUser } from '../utils/api';
+import { registerUser } from '../utils/auth';
 import Img from "../../assets/logo.png";
 
 export default function Register() {

@@ -6,7 +6,7 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import LockIcon from '@mui/icons-material/Lock';
 import Img from "../../assets/logo.png";
 import Image from 'next/image';
-import { loginUser } from '../utils/api';
+import { loginUser } from '../utils/auth';
 import { loginSuccess } from '../redux/reducers/loginReducer';
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/navigation';
