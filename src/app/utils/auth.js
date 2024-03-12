@@ -3,7 +3,7 @@ export async function registerUser(userData) {
 
         console.log(userData);
         const response = await fetch('http://localhost:8080/cabzen/registerUser', {
-            mode:"cors",
+            // mode:"cors",
             method: 'POST',
             credentials:"include",
             headers: {

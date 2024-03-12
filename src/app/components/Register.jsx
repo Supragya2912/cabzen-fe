@@ -10,7 +10,9 @@ import Image from 'next/image';
 import { registerUser } from '../utils/auth';
 import Img from "../../assets/logo.png";
 
-export default function Register() {
+export default function Register({onSuccess}) {
+
+
     const [showPassword, setShowPassword] = useState(false);
     const [formData, setFormData] = useState({
         fullName: '',
@@ -29,9 +31,10 @@ export default function Register() {
         e.preventDefault();
         try {
             await registerUser(formData);
+            onSuccess();
+            console.log("xxxx");
             setFormData();
-            alert('Registration successful!');
-          
+           
         } catch (error) {
             
             alert('Registration failed. Please try again.');
@@ -55,7 +58,8 @@ export default function Register() {
                     }}
                     label="Full Name" variant="outlined" margin="normal"
                     name="fullName"
-                    value={formData.fullName}
+                    value={formData
+                        ?.fullName}
                     onChange={handleChange}
                     required
                 />
@@ -66,7 +70,7 @@ export default function Register() {
                     }}
                     label="User Name" variant="outlined" margin="normal"
                     name="userName"
-                    value={formData.userName}
+                    value={formData?.userName}
                     onChange={handleChange}
                     required
                 />
@@ -79,7 +83,7 @@ export default function Register() {
                     label="Email" variant="outlined" margin="normal"
                     name="email"
                     type="email"
-                    value={formData.email}
+                    value={formData?.email}
                     onChange={handleChange}
                     required
                 />
@@ -98,7 +102,7 @@ export default function Register() {
                     type={showPassword ? 'text' : 'password'}
                     label="Password" variant="outlined" margin="normal"
                     name="password"
-                    value={formData.password}
+                    value={formData?.password}
                     onChange={handleChange}
                     required
                 />
@@ -110,7 +114,7 @@ export default function Register() {
                     label="Phone" variant="outlined" margin="normal"
                     name="phone"
                     type="tel"
-                    value={formData.phone}
+                    value={formData?.phone}
                     onChange={handleChange}
                     required
                 />
@@ -119,7 +123,7 @@ export default function Register() {
                     fullWidth
                     label="Role"
                     name="role"
-                    value={formData.role}
+                    value={formData?.role}
                     onChange={handleChange}
                     required
                 >

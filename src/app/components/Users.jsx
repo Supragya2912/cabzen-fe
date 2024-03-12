@@ -1,16 +1,43 @@
 "use client"
-import React, { useState } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import Navbar from './Navbar';
-import { Typography, TextField, Grid, IconButton } from '@mui/material';
+import { Typography, TextField, Grid, IconButton, Modal } from '@mui/material';
 import { IoIosPersonAdd } from "react-icons/io";
 import Avatar from '@mui/material/Avatar';
 import CardList from './CardList';
 import { useSelector } from 'react-redux';
+import Register from './Register';
+import { getAllUsers } from '../utils/admin';
 
 const Users = () => {
 
+    const [openRegister, setOpenRegister] = useState(false);
+    const [users, setUsers] = useState([])
+
+
+    const fetchUserData = useCallback(() => {
+        getAllUsers().then((response) => {
+            setUsers(response.data)
+        }).catch((error) => {
+            console.error('Error fetching users:', error);
+        })
+    }, [])
+
+    useEffect(() => {
+
+        fetchUserData();
+    }, [fetchUserData]);
+
+    const handleOpenRegister = () => setOpenRegister(true);
+
+    const handleCloseRegister = () => {
+        setOpenRegister(false);
+        fetchUserData();
+    };
+
+
     const userData = useSelector((state) => state.loginReducer.user)
-    console.log(userData);
+
     return (
         <>
             <div style={{
@@ -26,7 +53,7 @@ const Users = () => {
                     <Grid item xs={4} sm={8}>
                         <div style={{ display: 'flex' }}>
                             <TextField fullWidth placeholder='Search'></TextField>
-                            <IconButton style={{ marginLeft: 5, backgroundColor: '#FFA500', borderRadius: '50%', boxShadow: '0px 0px 5px 0px rgba(255, 165, 0, 0.5)' }}>
+                            <IconButton onClick={handleOpenRegister} style={{ marginLeft: 5, backgroundColor: '#FFA500', borderRadius: '50%', boxShadow: '0px 0px 5px 0px rgba(255, 165, 0, 0.5)' }}>
                                 <IoIosPersonAdd style={{ color: "#fff" }} />
                             </IconButton>
                         </div>
@@ -36,9 +63,15 @@ const Users = () => {
                     </Grid>
                 </Grid>
 
-                {/* Card list of users is to be added here */}
-                <CardList />
+                <CardList users={users} />
+
             </div>
+
+            <Modal open={openRegister} onClose={handleCloseRegister} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+                    <Register onSuccess={handleCloseRegister} />
+                </div>
+            </Modal>
         </>
     );
 }
