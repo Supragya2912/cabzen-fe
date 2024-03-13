@@ -13,7 +13,7 @@ const Users = () => {
 
     const [openRegister, setOpenRegister] = useState(false);
     const [users, setUsers] = useState([])
-
+    const [searchQuery, setSearchQuery] = useState('');
 
     const fetchUserData = useCallback(() => {
         getAllUsers().then((response) => {
@@ -24,9 +24,12 @@ const Users = () => {
     }, [])
 
     useEffect(() => {
-
         fetchUserData();
     }, [fetchUserData]);
+
+    const handleSearchChange = (event) => {
+        setSearchQuery(event.target.value);
+    };
 
     const handleOpenRegister = () => setOpenRegister(true);
 
@@ -34,7 +37,6 @@ const Users = () => {
         setOpenRegister(false);
         fetchUserData();
     };
-
 
     const userData = useSelector((state) => state.loginReducer.user)
 
@@ -52,7 +54,8 @@ const Users = () => {
                     </Grid>
                     <Grid item xs={4} sm={8}>
                         <div style={{ display: 'flex' }}>
-                            <TextField fullWidth placeholder='Search'></TextField>
+                            <TextField fullWidth placeholder='Search' value={searchQuery}
+                                onChange={handleSearchChange}></TextField>
                             <IconButton onClick={handleOpenRegister} style={{ marginLeft: 5, backgroundColor: '#FFA500', borderRadius: '50%', boxShadow: '0px 0px 5px 0px rgba(255, 165, 0, 0.5)' }}>
                                 <IoIosPersonAdd style={{ color: "#fff" }} />
                             </IconButton>
@@ -63,7 +66,7 @@ const Users = () => {
                     </Grid>
                 </Grid>
 
-                <CardList users={users} />
+                <CardList users={users} searchQuery={searchQuery} onUserRegistered={fetchUserData} />
 
             </div>
 
