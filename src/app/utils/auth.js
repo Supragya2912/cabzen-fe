@@ -1,7 +1,7 @@
 export async function registerUser(userData) {
     try {
 
-        console.log(userData);
+        
         const response = await fetch('http://localhost:8080/cabzen/registerUser', {
             // mode:"cors",
             method: 'POST',
@@ -12,7 +12,7 @@ export async function registerUser(userData) {
             body: JSON.stringify(userData),
         });
 
-        console.log(response);
+       
 
         if (!response.ok) {
             throw new Error('Registration failed');
