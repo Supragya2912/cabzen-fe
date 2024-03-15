@@ -3,9 +3,7 @@ import React, { useState, useCallback, useEffect } from 'react';
 import Navbar from './Navbar';
 import { Typography, TextField, Grid, IconButton, Modal } from '@mui/material';
 import { IoIosPersonAdd } from "react-icons/io";
-import Avatar from '@mui/material/Avatar';
 import CardList from './CardList';
-import { useSelector } from 'react-redux';
 import Register from './Register';
 import { getAllUsers } from '../utils/admin';
 
@@ -38,7 +36,7 @@ const Users = () => {
         fetchUserData();
     };
 
-    const userData = useSelector((state) => state.loginReducer.user)
+   
 
     return (
         <>
@@ -61,9 +59,9 @@ const Users = () => {
                             </IconButton>
                         </div>
                     </Grid>
-                    <Grid item xs={4} sm={2} style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
+                    {/* <Grid item xs={4} sm={2} style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
                         <Avatar sx={{ marginRight: 2 }} alt="Avatar" src="/avatar.jpg" />
-                    </Grid>
+                    </Grid> */}
                 </Grid>
 
                 <CardList users={users} searchQuery={searchQuery} onUserRegistered={fetchUserData} />

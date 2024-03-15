@@ -45,14 +45,13 @@ export default function Login() {
 
     const handleLogin = async(e) => {
 
-        console.log("click")
+        
 
         e.preventDefault();
         try {
 
           const loginResponse = await loginUser(loginData);
-           console.log(loginResponse.data)
-           
+          
            dispatch(loginSuccess(loginResponse.data))
            router.push('/dashboard');
           

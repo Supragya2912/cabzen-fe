@@ -19,7 +19,7 @@ export async function getAllUsers () {
 
 export async function updateUser(userData) {
 
-    console.log('UPDATE USER', userData);
+  
 
     try{
 

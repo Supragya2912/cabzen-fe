@@ -32,7 +32,7 @@ export default function Register({onSuccess}) {
         try {
             await registerUser(formData);
             onSuccess();
-            console.log("xxxx");
+            
             setFormData();
            
         } catch (error) {
