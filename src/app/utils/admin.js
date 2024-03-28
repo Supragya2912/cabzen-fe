@@ -19,8 +19,6 @@ export async function getAllUsers () {
 
 export async function updateUser(userData) {
 
-  
-
     try{
 
         if (!userData.userName){
@@ -49,3 +47,4 @@ export async function updateUser(userData) {
         throw err;
     }
 }
+

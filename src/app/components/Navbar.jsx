@@ -18,11 +18,14 @@ import Avatar from '@mui/material/Avatar';
 import { useSelector } from 'react-redux';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import { useRouter } from 'next/navigation';
 
 export default function TemporaryDrawer() {
 
+    const router = useRouter();
     const [open, setOpen] = useState(false);
     const [openMenu, setOpenMenu] = useState(false);
+    
 
     const toggleDrawer = (newOpen) => () => {
         setOpen(newOpen);
