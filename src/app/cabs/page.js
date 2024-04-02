@@ -1,6 +1,7 @@
 import { Card, Typography, CardContent, Grid } from '@mui/material';
 import Layout from '../components/Layout';
 import { cookies } from 'next/headers';
+import SearchBar from '../components/SearchBar';
 
 const fetchData = async () => {
 
@@ -32,8 +33,19 @@ const fetchData = async () => {
     }
 };
 
+
+
 const Cabs = async () => {
+
     const cabs = await fetchData();
+
+    const handleSearch = (searchQuery) => {
+        const filtered = cabs.filter(cab =>
+            cab.brand.name.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+        setFilteredCabs(filtered);
+    };
+    
 
     return (
         <Layout>
@@ -47,6 +59,7 @@ const Cabs = async () => {
 
                     <Grid item xs={4} sm={2} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                         <Typography variant='h6'>Cabs</Typography>
+                        <SearchBar onSearch={handleSearch}/>
                     </Grid>
 
 
