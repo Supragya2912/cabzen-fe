@@ -1,9 +1,15 @@
 export async function getAllUsers () {
     try {
+
+       const accessToken =  localStorage.getItem('accessToken');
         const response = await fetch('http://localhost:8080/cabzen/getAllUsers', {
             mode: 'cors',
             method: 'POST',
             credentials: 'include',
+            headers:{
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${accessToken}`
+            }
         });
 
         if (!response.ok) {

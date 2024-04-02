@@ -42,6 +42,8 @@ const Card = ({ user, onUpdate }) => {
 
     return (
         <>
+
+        
             <div style={{
                 backgroundColor: 'white',
                 padding: 20,

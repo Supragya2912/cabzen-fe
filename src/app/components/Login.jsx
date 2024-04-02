@@ -51,6 +51,8 @@ export default function Login() {
         try {
 
           const loginResponse = await loginUser(loginData);
+          console.log("loginResponse", loginResponse);
+          localStorage.setItem('accessToken', loginResponse.accessToken);
           
            dispatch(loginSuccess(loginResponse.data))
            router.push('/dashboard');

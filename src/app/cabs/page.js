@@ -1,25 +1,25 @@
 import { Card, Typography, CardContent, Grid } from '@mui/material';
 import Layout from '../components/Layout';
-
+import { cookies } from 'next/headers';
 
 const fetchData = async () => {
-    try {
-        const accessToken = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZDljYWVmNGQ4OWM2NzcyN2JjODJjYyIsImlhdCI6MTcxMTYxMTA0NywiZXhwIjoxNzExNjk3NDQ3fQ.ctZ5_QjtaGK7_ySK1Mo5x3fC5fN6nJD5vv1GIZnHP4o'; // Your access token
 
+    const cookieStore = cookies();
+    const accessToken = cookieStore.get('accessToken').value;
+
+    try {
         const response = await fetch('http://localhost:8080/cabzen/listAllCabs', {
             method: 'POST',
             credentials: 'include',
             mode: 'cors',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': accessToken 
+                'Authorization': `Bearer ${accessToken}`
             },
             body: JSON.stringify({
                 page: 1
             })
         });
-
-        console.log("RESPONSE", response);
 
         if (!response.ok) {
             throw new Error('Failed to fetch data');
@@ -32,37 +32,64 @@ const fetchData = async () => {
     }
 };
 
-
-const  Cabs = async () => {
-
+const Cabs = async () => {
     const cabs = await fetchData();
-    console.log("CABS" , cabs);
+
     return (
-   <Layout>
-        <Grid container spacing={3}>
-            {cabs?.data?.map((cab) => (
-                <Grid item key={cab._id} xs={12} sm={6} md={4}>
-                    <Card>
-                        <CardContent>
-                            <Typography variant="h5" component="h2">
-                                {cab.brand} {cab.model}
-                            </Typography>
-                            <Typography color="textSecondary">
-                                License Plate: {cab.licensePlate}
-                            </Typography>
-                            <Typography color="textSecondary">
-                                Status: {cab.status}
-                            </Typography>
-                        
-                        </CardContent>
-                    </Card>
+        <Layout>
+
+
+            <div style={{
+                height: '100vh',
+                backgroundColor: '#EAEAEA'
+            }}>
+                <Grid container spacing={4} justifyContent="flex-start">
+
+                    <Grid item xs={4} sm={2} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                        <Typography variant='h6'>Cabs</Typography>
+                    </Grid>
+
+
                 </Grid>
-            ))}
-        </Grid>
+
+                <Grid container spacing={4} justifyContent="flex-start" sx={{ marginTop: 5 }}>
+                    <Grid item xs={12} sm={6} md={4} style={{ display: 'flex', justifyContent: 'center' }}>
+                        {cabs?.data?.map((cab) => (
+
+                            <div style={{
+                                backgroundColor: 'white',
+                                padding: 20,
+                                borderRadius: 10,
+                                boxShadow: '0px 0px 10px 0px rgba(255, 165, 0, 0.3)',
+                                width: '70%',
+                                maxWidth: 600,
+                                position: 'relative'
+                            }}>
+                                <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+                                    <Typography style={{ fontSize: '1.5rem' }}>{cab.brand.name} {cab.model}</Typography>
+                                    <Typography
+                                        style={{
+                                            fontSize: '1.0rem',
+                                            color: cab.status === 'booked' ? 'green' : cab.status === 'active' ? 'blue' : cab.status === 'inactive' ? 'red' : 'inherit'
+                                        }}
+                                    >
+                                        {cab.status === 'booked' ? 'Booked' : cab.status === 'active' ? 'Active' : 'Inactive'}
+                                    </Typography>
+                                </div>
+                                <div>
+                                    <Typography variant="subtitle2" style={{ color: 'gray', marginBottom: 5 }} sx={{ fontSize: { xs: '0.8rem', sm: '1rem' } }}>License Plate: {cab.licensePlate}</Typography>
+                                    <Typography sx={{ fontSize: { xs: '0.8rem', sm: '1rem', marginTop: 10 } }}>Driver Details</Typography>
+                                    <Typography variant="subtitle2" style={{ color: 'gray' }} sx={{ fontSize: { xs: '0.8rem', sm: '1rem' } }}>Name: {cab.driver.fullName}</Typography>
+                                    <Typography variant="subtitle2" style={{ color: 'gray', marginBottom: 5 }} sx={{ fontSize: { xs: '0.8rem', sm: '1rem' } }}>Phone: {cab.driver.phone}</Typography>
+                                </div>
+                            </div>
+                        ))}
+                    </Grid>
+                </Grid>
+
+            </div>
         </Layout>
     );
 }
 
 export default Cabs;
-
-
